@@ -1,4 +1,4 @@
-package dev.aiplayground.ai_document_chatbot;
+package dev.aiplayground.aidocumentchatbot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
