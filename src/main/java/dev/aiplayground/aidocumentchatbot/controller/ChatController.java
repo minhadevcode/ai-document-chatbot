@@ -2,6 +2,7 @@ package dev.aiplayground.aidocumentchatbot.controller;
 
 import dev.aiplayground.aidocumentchatbot.dto.ChatRequest;
 import dev.aiplayground.aidocumentchatbot.dto.ChatResponse;
+import dev.aiplayground.aidocumentchatbot.service.AiService;
 import dev.aiplayground.aidocumentchatbot.service.ChatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     private final ChatService chatService;
+    private final AiService aiService;
 
     @PostMapping("/chat")
     public ChatResponse chat(@Valid @RequestBody ChatRequest request){
-        return chatService.chat(request);
+
+        String answer = aiService.ask(request.getQuestion());
+
+        return new ChatResponse(request.getQuestion(), answer);
     }
 }
