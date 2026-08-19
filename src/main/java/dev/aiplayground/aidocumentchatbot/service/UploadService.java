@@ -10,10 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UploadService {
     private final PdfService pdfService;
+    private final DocumentService documentService;
 
     public UploadResponse upload(MultipartFile file) {
         String text = pdfService.extractText(file);
 
+        documentService.saveDocument(text);
         System.out.println("text: " + text);
 
         return new UploadResponse(file.getOriginalFilename(), file.getSize(), "파일 업로드 성공");
