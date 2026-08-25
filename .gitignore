@@ -10,6 +10,7 @@
 # VS Code
 # =========================
 .vscode/
+!.vscode/extensions.json
 
 # =========================
 # OS
@@ -19,16 +20,17 @@
 # =========================
 # Backend - Spring Boot / Maven
 # =========================
-backend/target/
 target/
+**/target/
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 # Backend local configuration
 backend/src/main/resources/application.properties
+*.local
 
+# =========================
 # Postman
+# =========================
 backend/.postman/
 backend/postman/
 
@@ -37,6 +39,18 @@ backend/postman/
 # =========================
 frontend/node_modules/
 frontend/dist/
+frontend/dist-ssr/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # =========================
 # STS / Eclipse
@@ -54,7 +68,6 @@ frontend/dist/
 # =========================
 /nbproject/private/
 /nbbuild/
-/dist/
 /nbdist/
 /.nb-gradle/
 build/
@@ -62,6 +75,11 @@ build/
 !**/src/test/**/build/
 
 # =========================
-# Misc
+# Misc / IDE
 # =========================
 HELP.md
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
