@@ -31,7 +31,7 @@ public class ChatController {
         if(documentService.getDocumentText() == null){
             return new ChatResponse(request.getQuestion(), "파일이 없습니다. 먼저 PDF 파일을 업로드 해주세요");
         }
-        List<Document> documents = vectorStore.similaritySearch(SearchRequest.builder().query(request.getQuestion()).topK(3).similarityThreshold(0.7).build());
+        List<Document> documents = vectorStore.similaritySearch(SearchRequest.builder().query(request.getQuestion()).topK(3).similarityThreshold(0.5).build());
 
         System.out.println("documents : " +documents);
 
