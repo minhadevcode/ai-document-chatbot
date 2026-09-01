@@ -3,6 +3,8 @@ import { nextTick, ref, watch } from 'vue'
 import { askQuestion as requestQuestion } from './services/api'
 import FileUpload from './components/FileUpload.vue'
 import ChatMessage from './components/ChatMessage.vue'
+import AiLoading from './components/AiLoading.vue'
+import ErrorMessage from './components/ErrorMessage.vue'
 import ChatInput from './components/ChatInput.vue'
 
 interface Message {
@@ -28,6 +30,7 @@ watch(
 )
 
 const loading = ref(false)
+const error = ref(false)
 
 const handleUploaded = (name: string) => {
   fileName.value = name
@@ -41,6 +44,7 @@ const sendQuestion = async (question: string) => {
   })
 
   loading.value = true
+  error.value = false
 
   try {
     const result = await requestQuestion(question)
@@ -50,10 +54,7 @@ const sendQuestion = async (question: string) => {
       content: result.answer
     })
   } catch {
-    messages.value.push({
-      role: 'ai',
-      content: '답변을 가져오지 못했습니다.'
-    })
+    error.value = true
   } finally {
     loading.value = false
   }
@@ -105,11 +106,9 @@ const sendQuestion = async (question: string) => {
           :content="message.content"
         />
 
-        <ChatMessage
-          v-if="loading"
-          role="ai"
-          content="답변을 생성하고 있습니다..."
-        />
+        <AiLoading v-if="loading" />
+        
+        <ErrorMessage v-if="error" />
 
       </div>
 
