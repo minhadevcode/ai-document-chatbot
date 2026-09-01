@@ -145,7 +145,6 @@ const sendQuestion = async (question: string) => {
   color: #666;
 }
 
-
 .chat-container {
   width: 800px;
   height: 600px;
@@ -208,7 +207,12 @@ const sendQuestion = async (question: string) => {
   color: #777;
 }
 
+/* 태블릿 */
 @media (max-width: 840px) {
+  .app {
+    padding: 30px 16px;
+  }
+
   .header,
   .chat-container {
     width: 100%;
@@ -216,6 +220,69 @@ const sendQuestion = async (question: string) => {
 
   .chat-container {
     height: 70vh;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .app {
+    padding: 20px 12px;
+  }
+
+  .header {
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .header p {
+    font-size: 13px;
+  }
+
+  .chat-container {
+    margin-top: 16px;
+    height: calc(100vh - 230px);
+    min-height: 450px;
+    border-radius: 10px;
+  }
+
+  .messages {
+    padding: 16px 12px;
+  }
+
+  .empty-content {
+    max-width: 90%;
+  }
+
+  .empty-content h2 {
+    font-size: 18px;
+  }
+
+  .question-examples {
+    margin-top: 20px;
+    padding: 14px 16px;
+  }
+}
+
+/* 작은 모바일 */
+@media (max-width: 400px) {
+  .app {
+    padding: 16px 8px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .chat-container {
+    height: calc(100vh - 210px);
+    min-height: 400px;
+  }
+
+  .messages {
+    padding: 14px 10px;
   }
 }
 </style>

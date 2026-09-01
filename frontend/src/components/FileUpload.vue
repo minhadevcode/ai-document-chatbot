@@ -219,4 +219,48 @@ const uploadFile = async () => {
     width: 100%;
   }
 }
+
+@media (max-width: 600px) {
+  .upload-section {
+    margin-bottom: 16px;
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .drop-zone {
+    padding: 30px 14px;
+  }
+
+  .drop-title {
+    font-size: 15px;
+  }
+
+  .drop-description {
+    font-size: 13px;
+  }
+
+  .current-file {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+
+  .upload-message {
+    font-size: 12px;
+  }
+
+  .upload-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .drop-zone {
+    padding: 26px 10px;
+  }
+
+  .file-button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
 </style>

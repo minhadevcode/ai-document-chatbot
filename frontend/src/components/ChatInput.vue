@@ -45,6 +45,7 @@ const handleKeydown = (event: KeyboardEvent) => {
     />
 
     <Button
+      class="send-button"
       :label="loading ? '답변 중...' : '전송'"
       :disabled="loading || !question.trim()"
       @click="sendQuestion"
@@ -60,10 +61,12 @@ const handleKeydown = (event: KeyboardEvent) => {
   padding: 16px;
   border-top: 1px solid #ddd;
   background: white;
+  box-sizing: border-box;
 }
 
 .question-input {
   flex: 1;
+  min-width: 0;
   min-height: 42px;
   max-height: 120px;
   padding: 10px 12px;
@@ -85,13 +88,39 @@ const handleKeydown = (event: KeyboardEvent) => {
   background: #f5f5f5;
 }
 
+.send-button {
+  flex-shrink: 0;
+}
+
 @media (max-width: 600px) {
   .input-area {
-    padding: 12px;
+    gap: 8px;
+    padding: 10px;
   }
 
   .question-input {
+    min-height: 40px;
+    padding: 9px 10px;
     font-size: 13px;
+  }
+
+  .send-button {
+    min-width: 64px;
+  }
+}
+
+@media (max-width: 400px) {
+  .input-area {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .question-input {
+    font-size: 12px;
+  }
+
+  .send-button {
+    min-width: 58px;
   }
 }
 </style>
