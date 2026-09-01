@@ -12,18 +12,22 @@ const fileName = ref('')
 const message = ref('')
 const uploading = ref(false)
 const dragging = ref(false)
+const status = ref<'success' | 'error' | ''>('')
 
 const selectFile = (selectedFile: File) => {
-  if (selectedFile.type !== 'application/pdf') {
+  const isPdf = selectedFile.type === 'application/pdf' || selectedFile.name.toLowerCase().endsWith('.pdf')
+  if (!isPdf) {
     file.value = null
     fileName.value = ''
     message.value = 'PDF 파일만 업로드할 수 있습니다.'
+    status.value = 'error'
     return
   }
 
   file.value = selectedFile
   fileName.value = selectedFile.name
   message.value = ''
+  status.value = ''
 }
 
 const handleFileChange = (event: Event) => {
@@ -55,6 +59,7 @@ const handleDrop = (event: DragEvent) => {
 const uploadFile = async () => {
   if (!file.value) {
     message.value = 'PDF 파일을 선택해주세요.'
+    status.value = 'error'
     return
   }
 
@@ -64,16 +69,19 @@ const uploadFile = async () => {
 
   uploading.value = true
   message.value = ''
+  status.value = ''
 
   try {
     const result = await uploadPdf(file.value)
 
     fileName.value = result.fileName
     message.value = result.message
+    status.value = 'success'
 
     emit('uploaded', result.fileName)
   } catch {
     message.value = '파일 업로드에 실패했습니다.'
+    status.value = 'error'
   } finally {
     uploading.value = false
   }
@@ -112,10 +120,14 @@ const uploadFile = async () => {
       <div class="current-file">
         현재 문서: {{ fileName }}
       </div>
-
-      <div v-if="message" class="upload-message">
-        {{ message }}
-      </div>
+    </div>
+    
+    <div
+        v-if="message"
+        class="upload-message"
+        :class="status"
+    >
+      {{ message }}
     </div>
 
     <Button
@@ -188,7 +200,14 @@ const uploadFile = async () => {
 .upload-message {
   margin-top: 6px;
   font-size: 13px;
-  color: #777;
+}
+
+.upload-message.success {
+  color: #4a7c59;
+}
+
+.upload-message.error {
+  color: #b45353;
 }
 
 .upload-button {
