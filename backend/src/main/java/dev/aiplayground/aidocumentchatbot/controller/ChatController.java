@@ -40,8 +40,10 @@ public class ChatController {
             return new ChatResponse(request.getQuestion(), "문서에서 관련 내용을 찾을 수 없습니다.");
         }
 
-        String documentText = documents.stream().map(Document::getText).collect(Collectors.joining("\n"));
-        String answer = aiService.ask(request.getQuestion(), documentText);
+        String documentText = documents.stream()
+                .map(Document::getText)
+                .collect(Collectors.joining("\n"));
+        String answer = aiService.ask(request.getQuestion(), documentText, request.getHistory());
 
         return new ChatResponse(request.getQuestion(), answer);
     }

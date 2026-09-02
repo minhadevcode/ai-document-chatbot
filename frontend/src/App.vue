@@ -38,6 +38,16 @@ const handleUploaded = (name: string) => {
 }
 
 const sendQuestion = async (question: string) => {
+  if(!fileName.value) {
+    messages.value.push({
+      role: 'ai',
+      content: '먼저 PDF 파일을 업로드해주세요.'
+    })
+    return
+  }
+
+  const history = [...messages.value]
+  
   messages.value.push({
     role: 'user',
     content: question
@@ -47,7 +57,7 @@ const sendQuestion = async (question: string) => {
   error.value = false
 
   try {
-    const result = await requestQuestion(question)
+    const result = await requestQuestion(question, history)
 
     messages.value.push({
       role: 'ai',
